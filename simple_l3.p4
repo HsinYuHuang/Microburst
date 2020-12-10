@@ -579,7 +579,7 @@ control Ingress(
                 if(hdr.bounce_sequence.isValid()){
                     read_seq_from_header.apply();
                 } else {
-                    meta.local_meta.new_flowlet = (bit<1>)flowlet_state.execute(meta.local_meta. );
+                    meta.local_meta.new_flowlet = (bit<1>)flowlet_state.execute(meta.local_meta.hash_temp);
                 }
 
                 if(meta.local_meta.need_bounce == 1) {
