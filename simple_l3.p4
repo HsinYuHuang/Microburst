@@ -203,9 +203,7 @@ parser IngressParser(packet_in        pkt,
         transition parse_ethernet;
     }
 
-#ifdef PARSER_OPT
-    @critical
-#endif
+
     state parse_ethernet {
         pkt.extract(hdr.ethernet);
         transition select(hdr.ethernet.ether_type) {
@@ -219,9 +217,7 @@ parser IngressParser(packet_in        pkt,
         }
     }
 
-#ifdef PARSER_OPT
-    @critical
-#endif
+
 
     state parse_vlan_tag {
         pkt.extract(hdr.vlan_tag);
@@ -231,9 +227,7 @@ parser IngressParser(packet_in        pkt,
         }
     }
     
-#ifdef PARSER_OPT
-    @critical
-#endif
+
     state parse_ipv4 {
         pkt.extract(hdr.ipv4);
         transition select(hdr.ipv4.protocol) {
@@ -300,6 +294,10 @@ control Ingress(
     action set_egr() {
         ig_tm_md.ucast_egress_port = 20;
     }
+
+    // action set_egr(PortId_t port) {
+    //     ig_tm_md.ucast_egress_port = port;
+    // }
     action nop() {
     }
 
